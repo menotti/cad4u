@@ -12,7 +12,7 @@ compiler = 'iverilog'
 script_run = '/content/cad4u/verilog/script.ys'
 script_yosys = '/content/cad4u/verilog/yosys_command.sh'
 netlistsvg_run = '/content/cad4u/verilog/netlistsvg/bin/netlistsvg.js'
-SKIN_PATH='/content/cad4u/verilog/netlistsvg/lib/'
+SKIN_PATH= '/content/cad4u/verilog/netlistsvg/lib/'
 
 ext = '.v'
 
@@ -23,15 +23,6 @@ class VERILOGPlugin(Magics):
         super(VERILOGPlugin, self).__init__(shell)
         self.argparser = helper.get_argparser()
         self.already_install = False
-
-    def updateInstall(self):
-        print("Installing dependencies. Please wait... ", end="")
-        args = ["sh", "/content/cad4u/verilog/update_install.sh"]
-
-        output = subprocess.check_output(args, stderr=subprocess.STDOUT)
-        output = output.decode('utf8')
-        #helper.print_out(output)
-        print("done!")
 
     @staticmethod
     def compile(file_path, flags):
@@ -79,7 +70,7 @@ class VERILOGPlugin(Magics):
 
         if not self.already_install:
             self.already_install = True
-            self.updateInstall()
+            helper.update_install("sh /content/cad4u/verilog/update_install.sh")
 
         args = line.split()
 
@@ -98,7 +89,7 @@ class VERILOGPlugin(Magics):
 
         if not self.already_install:
             self.already_install = True
-            self.updateInstall()
+            helper.update_install("sh /content/cad4u/verilog/update_install.sh")
 
         if "-top" not in line: 
             line = ""
@@ -116,7 +107,7 @@ class VERILOGPlugin(Magics):
 
         if not self.already_install:
             self.already_install = True
-            self.updateInstall()
+            helper.update_install("sh /content/cad4u/verilog/update_install.sh")
 
         args = line.split()
 
